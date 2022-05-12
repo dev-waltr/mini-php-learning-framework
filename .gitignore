@@ -9,15 +9,23 @@ node_modules/
 /vendor/*
 !/vendor/composer/
 !/vendor/autoload.php
-
-
+!/vendor/smarty/
 
 
 # cache directory
-/cache
+/cache/*
+/cache/smarty_cache/*
+/cache/smarty_configs/*
+/cache/templates_c/*
+!/cache/smarty_cache/
+!/cache/smarty_configs/
+!/cache/templates_c/
 
 #PhpStorm
 .idea/
+
+# do not commit config
+config.ini
 
 # ignore OS generated files
 ehthumbs.db
@@ -66,4 +74,5 @@ Thumbs.db
 !.gitignore
 !.nvmrc
 !.phpcs.xml.dist
+!initital.sql
 

@@ -5,10 +5,17 @@
     /**
      * @route /login
      */
-    class Login
+    class Login extends ViewController
     {
-        public function action():string
+        protected function __action()
         {
-            return 'login';
+            $dbConnectionObj = new \Service\DbConnection($this->config);
+            $dbConnection = $dbConnectionObj->getPdoConnection();
+
+            $userModel = new \Model\User($dbConnection);
+            $user = $userModel->getUser('admin');
+
+            $this->smarty->assign('name', $user->name);
+            $this->smarty->display('login/login.tpl');
         }
     }

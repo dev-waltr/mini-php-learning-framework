@@ -7,15 +7,27 @@
 
         static $CACHE_PATH = __DIR__ . '/../../cache/routerCache.json';
 
-        public function findRoute() : void
+        public function findRoute():\Application\Controller\DefaultController
         {
-            $currentUri = $this->getCurrentUri();
-            $availableRoutes = $this->getAvailableRoutes();
+            $controllerObject = new Controller\Error();
+            try {
+                $currentUri = $this->getCurrentUri();
+                $availableRoutes = $this->getAvailableRoutes();
+
+                if (isset($availableRoutes[$currentUri])) {
+                    $controllerObject = new $availableRoutes[$currentUri]();
+                } else {
+                    $controllerObject = new \Application\Controller\Fallback();
+                }
+            } catch (\Exception $exception) {
+
+            }
+            return $controllerObject;
         }
 
         public function getCurrentUri() : string
         {
-            return $currentUri = $_SERVER['REQUEST_URI'];
+            return $currentUri = parse_url($_SERVER['REQUEST_URI'])['path'];
         }
 
         protected function getAvailableRoutes():array
@@ -38,7 +50,7 @@
             if (empty($this->availableRoutes)) {
                 if (is_readable(self::$CACHE_PATH)) {
                     $handle = fopen(self::$CACHE_PATH, "r");
-                    $this->availableRoutes = json_decode(fread($handle, filesize(self::$CACHE_PATH)));
+                    $this->availableRoutes = json_decode(fread($handle, filesize(self::$CACHE_PATH)), true);
                     fclose($handle);
                 }
             }
@@ -89,7 +101,7 @@
 
                     $routePath = explode(' ', $matches[0][0]);
 
-                    $routesToClasses[] = [$routePath[1] => $path];
+                    $routesToClasses[$routePath[1]] = $path;
                 }
             }
 

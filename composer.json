@@ -5,6 +5,8 @@
     "autoload": {
         "psr-4": {
             "Application\\Controller\\":"src/Controller/",
+            "Service\\":"src/Service/",
+            "Model\\":"src/Model/",
             "": "src/"
         }
     },
@@ -13,5 +15,7 @@
             "name": "Walter"
         }
     ],
-    "require": {}
+    "require": {
+        "smarty/smarty": "^4.1"
+    }
 }

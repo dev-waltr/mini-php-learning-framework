@@ -1,0 +1,17 @@
+{
+    "name": "vagrant/code",
+    "type": "project",
+    "license": "GPL",
+    "autoload": {
+        "psr-4": {
+            "Application\\Controller\\":"src/Controller/",
+            "": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Walter"
+        }
+    ],
+    "require": {}
+}

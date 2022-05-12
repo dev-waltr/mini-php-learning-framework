@@ -6,9 +6,12 @@
 node_modules/
 
 # ignore composer vendor directory
-/vendor
-!/vendor/composer
+/vendor/*
+!/vendor/composer/
 !/vendor/autoload.php
+
+
+
 
 # cache directory
 /cache
